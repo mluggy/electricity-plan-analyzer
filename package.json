@@ -7,6 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "electricity-plan-analyzer": "./index.js"
+  },
   "author": "Michael Lugassy (https://twitter.com/mluggy)",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
