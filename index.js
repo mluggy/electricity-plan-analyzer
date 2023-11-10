@@ -39,7 +39,7 @@ const isNight = (hour) => hour >= 0 && hour < 7
 const isDay = (hour) => hour >= 8 && hour < 16
 const isEveningOrEarlyMorning = (hour) => hour >= 23 || hour < 7
 const isWorkFromHomeHours = (hour) => hour >= 7 && hour < 17
-const isElectraHiTechHours = (hour) => hour >= 23 && hour < 17
+const isElectraHiTechHours = (hour) => hour >= 23 || hour < 17
 const isCellcomNight = (dayOfWeek, hour) => (dayOfWeek <= 5 && (hour >= 22 || hour < 7)) || (dayOfWeek === 6 && hour < 7)
 
 const processRow = (row) => {
