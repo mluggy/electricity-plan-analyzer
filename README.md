@@ -15,20 +15,12 @@ The CLI outputs:
 - Discount percentage for each plan
 - Top 5 recommended plans based on the total annual discount
 
-## Installation
-
-To install the Electricity Plan Analyzer, ensure that Node.js and npm are installed on your system, clone this repo and run:
-
-```
-npm install
-```
-
 ## Usage
 
 To run the Electricity Plan Analyzer, execute the following command with the path to your electricity consumption CSV file:
 
 ```
-node index.js --input <path-to-csv> --output <output-csv> --cost <cost-multiplier>
+npx electricity-plan-analyzer --input <path-to-csv> --output <output-csv> --cost <cost-multiplier>
 ```
 
 ### Options
@@ -42,25 +34,25 @@ node index.js --input <path-to-csv> --output <output-csv> --cost <cost-multiplie
 - Using the default input and output paths:
 
 ```
-node index.js
+npx electricity-plan-analyzer
 ```
 
 - Specifying a custom input file:
 
 ```
-node index.js --input /path/to/your/usage.csv
+npx electricity-plan-analyzer --input /path/to/your/usage.csv
 ```
 
 - Specifying both input and output files:
 
 ```
-node index.js --input /path/to/your/usage.csv --output /path/to/your/result.csv
+npx electricity-plan-analyzer --input /path/to/your/usage.csv --output /path/to/your/result.csv
 ```
 
 - Specifying a custom cost multiplier:
 
 ```
-node index.js --cost 0.65
+npx electricity-plan-analyzer --cost 0.65
 ```
 
 ## Acknowledgments
