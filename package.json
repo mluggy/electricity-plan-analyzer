@@ -1,0 +1,17 @@
+{
+  "name": "electricity-plan-analyzer",
+  "version": "1.0.0",
+  "description": "The Electricity Plan Analyzer is a command-line utility that aids consumers in Israel in making informed decisions about their electricity plan. Users can analyze their electricity consumption data from the Israel Electric Company (IEC) to determine which electricity plan offers the best value based on their usage patterns.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Lugassy (https://twitter.com/mluggy)",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "fast-csv": "^4.3.6",
+    "moment": "^2.29.4",
+    "yargs": "^17.7.2"
+  }
+}
