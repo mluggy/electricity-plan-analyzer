@@ -4,7 +4,7 @@
 
 The Electricity Plan Analyzer is a command-line utility that aids consumers in Israel in making informed decisions about their electricity plan. Users can analyze their electricity consumption data from the Israel Electric Company (IEC) to determine which electricity plan offers the best value based on their usage patterns.
 
-IEC customers can <a href="https://www.iec.co.il/remote-reading-info">download their consumption data here,</a> which includes KwH usage for every 15-minute interval, and use this tool to compare different plans.
+Israeli customers can <a href="https://www.iec.co.il/remote-reading-info">download their consumption data here,</a> which includes KwH usage for every 15-minute interval, and use this tool to compare different plans.
 
 The CLI outputs:
 
@@ -25,19 +25,13 @@ npx electricity-plan-analyzer --input <path-to-csv> --output <output-csv> --cost
 
 ### Options
 
-- `--input`, `-i`: Path to your electricity usage CSV file. Defaults to `meter_input.csv`.
+- `--input`, `-i`: Path to your electricity usage CSV file. Required.
 - `--output`, `-o`: Path for the output CSV file. Defaults to `meter_output.csv`.
 - `--cost`, `-c`: The cost multiplier used for calculating the total cost. Defaults to `0.6007`.
 
 ### Examples
 
-- Using the default input and output paths:
-
-```
-npx electricity-plan-analyzer
-```
-
-- Specifying a custom input file:
+- Using the default output and cost:
 
 ```
 npx electricity-plan-analyzer --input /path/to/your/usage.csv
@@ -49,10 +43,10 @@ npx electricity-plan-analyzer --input /path/to/your/usage.csv
 npx electricity-plan-analyzer --input /path/to/your/usage.csv --output /path/to/your/result.csv
 ```
 
-- Specifying a custom cost multiplier:
+- Specifying both input file and custom cost multiplier:
 
 ```
-npx electricity-plan-analyzer --cost 0.65
+npx electricity-plan-analyzer --input /path/to/your/usage.csv --cost 0.65
 ```
 
 ## Acknowledgments

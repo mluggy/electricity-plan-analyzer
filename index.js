@@ -11,7 +11,7 @@ const argv = yargs(hideBin(process.argv))
     alias: 'i',
     describe: 'Input CSV file path',
     type: 'string',
-    default: 'meter_input.csv'
+    demandOption: true
   })
   .option('output', {
     alias: 'o',
@@ -39,6 +39,7 @@ const isNight = (hour) => hour >= 0 && hour < 7
 const isDay = (hour) => hour >= 8 && hour < 16
 const isEveningOrEarlyMorning = (hour) => hour >= 23 || hour < 7
 const isWorkFromHomeHours = (hour) => hour >= 7 && hour < 17
+const isElectraHiTechHours = (hour) => hour >= 23 && hour < 17
 const isCellcomNight = (dayOfWeek, hour) => (dayOfWeek <= 5 && (hour >= 22 || hour < 7)) || (dayOfWeek === 6 && hour < 7)
 
 const processRow = (row) => {
@@ -60,7 +61,7 @@ const processRow = (row) => {
     PazgasNight: !isWeekend(dayOfWeek) && isNight(hour) ? kwh * 0.85 : kwh,
     PazgasDay: !isWeekend(dayOfWeek) && isDay(hour) ? kwh * 0.85 : kwh,
     ElectraPower: kwh * 0.95,
-    ElectraHitech: isEveningOrEarlyMorning(hour) ? kwh * 0.9 : kwh,
+    ElectraHitech: isElectraHiTechHours(hour) ? kwh * 0.92 : kwh,
     ElectraNight: isEveningOrEarlyMorning(hour) ? kwh * 0.8 : kwh,
     Amisragaz24: kwh * 0.935,
     Cellcom24: kwh * 0.95,
@@ -98,7 +99,7 @@ fs.createReadStream(inputFile)
     Object.keys(totalCosts).forEach((key) => {
       if (key !== 'KWH' && key !== 'DateTime') { // Exclude KWH and DateTime from discounts
         // Calculate total discounts for each key
-        totalDiscounts[key] = totalCosts[key] - totalKwhCost;
+        totalDiscounts[key] = totalKwhCost - totalCosts[key];
         // Calculate discount percent for each key
         discountPercentage[key] = (totalDiscounts[key] / totalKwhCost) * 100;
       } else {
@@ -133,7 +134,7 @@ fs.createReadStream(inputFile)
         const discountsExcludingDateTimeAndKWH = discountArray.filter((item) => item.plan !== 'DateTime' && item.plan !== 'KWH')
 
         // Sort in descending order of discount percentages
-        discountsExcludingDateTimeAndKWH.sort((a, b) => a.discountPercentage - b.discountPercentage)
+        discountsExcludingDateTimeAndKWH.sort((a, b) => b.discountPercentage - a.discountPercentage)
 
         // Get the top 5 plans
         const top5DiscountedPlans = discountsExcludingDateTimeAndKWH.slice(0, 5)
