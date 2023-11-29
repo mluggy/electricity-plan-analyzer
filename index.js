@@ -37,6 +37,9 @@ const totals = {}
 const isWeekend = (dayOfWeek) => dayOfWeek === 6 || dayOfWeek === 7
 const isNight = (hour) => hour >= 0 && hour < 7
 const isDay = (hour) => hour >= 8 && hour < 16
+const isSummer = (month) => month >= 6 && month <= 9
+const isWinter = (month) => month >= 12 || month <= 2
+const isSpringOrAutumn = (month) => month >= 3 && month <= 5 || month >= 10 && month <= 11
 const isEveningOrEarlyMorning = (hour) => hour >= 23 || hour < 7
 const isWorkFromHomeHours = (hour) => hour >= 7 && hour < 17
 const isElectraHiTechHours = (hour) => hour >= 23 || hour < 17
@@ -52,6 +55,7 @@ const processRow = (row) => {
 
   const dayOfWeek = dateTime.isoWeekday()
   const hour = dateTime.hour()
+  const month = dateTime.month() + 1
 
   return {
     DateTime: row[0],
@@ -66,7 +70,8 @@ const processRow = (row) => {
     Amisragaz24: kwh * 0.935,
     Cellcom24: kwh * 0.95,
     CellcomWorkFromHome: !isWeekend(dayOfWeek) && isWorkFromHomeHours(hour) ? kwh * 0.85 : kwh,
-    CellcomNight: isCellcomNight(dayOfWeek, hour) ? kwh * 0.8 : kwh
+    CellcomNight: isCellcomNight(dayOfWeek, hour) ? kwh * 0.8 : kwh,
+    Taoz: (isSummer(month) ? (isWeekend(dayOfWeek) || (hour >= 0 && hour < 17) || hour === 23 ? 0.4815 : 1.6533) : isWinter(month) ? (hour >= 17 && hour < 22 ? 1.1478 : 0.4184) : !isWeekend(dayOfWeek) && hour >= 17 && hour < 22 ? 0.4583 : 0.4084) / costMultiplier * kwh
   }
 }
 
@@ -124,7 +129,7 @@ fs.createReadStream(inputFile)
       .on('finish', () => {
         console.log(`Processing complete. Output saved to ${outputFile}`)
 
-        // Calculate and print summary of top 5 discounted plans
+        // Calculate and print summary of all discounted plans
         const discountArray = Object.keys(discountPercentage).map((key) => ({
           plan: key,
           discountPercentage: discountPercentage[key],
@@ -136,11 +141,8 @@ fs.createReadStream(inputFile)
         // Sort in descending order of discount percentages
         discountsExcludingDateTimeAndKWH.sort((a, b) => b.discountPercentage - a.discountPercentage)
 
-        // Get the top 5 plans
-        const top5DiscountedPlans = discountsExcludingDateTimeAndKWH.slice(0, 5)
-
-        console.log('Top 5 Most Discounted Plans:')
-        top5DiscountedPlans.forEach((plan, index) => {
+        console.log('All plans, sorted by discount:')
+        discountsExcludingDateTimeAndKWH.forEach((plan, index) => {
           console.log(`${index + 1}. ${plan.plan}: ${plan.discountPercentage.toFixed(2)}%`)
         })
       })

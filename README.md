@@ -13,11 +13,10 @@ The CLI outputs:
 - Total annual cost
 - Total annual discount
 - Discount percentage for each plan
-- Top 5 recommended plans based on the total annual discount
 
 ## Plans
 
-Currently, 11 plans from 4 vendors are analyzed:
+Currently, 12 plans from 5 vendors are analyzed:
 
 - <a href="https://campaigns.pazgas.co.il/ele/" target="_blank">Pazgas</a>
     - 24/7 (5%)
@@ -34,6 +33,8 @@ Currently, 11 plans from 4 vendors are analyzed:
     - 24/7 (5-7%)
     - Work from home (15%)
     - Night (20%)
+- <a href="https://www.iec.co.il/content/tariffs/contentpages/taozb-private">IEC Taoz</a>
+    - High/Low by season (varies)
 
 ## Usage
 
