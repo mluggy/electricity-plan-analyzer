@@ -38,16 +38,15 @@ const isWeekend = (dayOfWeek) => dayOfWeek === 6 || dayOfWeek === 7
 const isNight = (hour) => hour >= 0 && hour < 7
 const isDay = (hour) => hour >= 8 && hour < 16
 const isSummer = (month) => month >= 6 && month <= 9
-const isWinter = (month) => month >= 12 || month <= 2
-const isSpringOrAutumn = (month) => month >= 3 && month <= 5 || month >= 10 && month <= 11
+const isWinter = (month) => month === 12 || month <= 2
 const isEveningOrEarlyMorning = (hour) => hour >= 23 || hour < 7
 const isWorkFromHomeHours = (hour) => hour >= 7 && hour < 17
 const isElectraHiTechHours = (hour) => hour >= 23 || hour < 17
 const isCellcomNight = (dayOfWeek, hour) => (dayOfWeek <= 5 && (hour >= 22 || hour < 7)) || (dayOfWeek === 6 && hour < 7)
 
 const processRow = (row) => {
-  const dateTime = moment(row[0], 'DD/MM/YYYY HH:mm', true)
-  const kwh = parseFloat(row[1])
+  const dateTime = moment(`${row[0]} ${row[1]}`, 'DD/MM/YYYY HH:mm', true)
+  const kwh = parseFloat(row[2])
 
   if (!dateTime.isValid() || isNaN(kwh)) {
     return null
