@@ -33,7 +33,9 @@ const processedRows = [];
 const totals = {};
 
 const processRow = (row) => {
-  const dateTime = moment(`${row[0]} ${row[1]}`, "DD/MM/YYYY HH:mm", true);
+  const datetime = `${row[0]} ${row[1]}`;
+  const dateTime = moment(datetime, "DD/MM/YYYY HH:mm", true);
+
   const kwh = parseFloat(row[2]);
 
   if (!dateTime.isValid() || isNaN(kwh)) {
@@ -45,7 +47,7 @@ const processRow = (row) => {
   const month = dateTime.month() + 1;
 
   return {
-    DateTime: row[0],
+    DateTime: datetime,
     KWH: kwh,
     Pazgas24: kwh * 0.93,
     ElectraPower: kwh * 0.95,
