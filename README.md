@@ -16,7 +16,7 @@ The CLI outputs:
 
 ## Plans
 
-Currently, 12 plans from 5 vendors are analyzed:
+Currently, 13 plans from 6 vendors are analyzed:
 
 - <a href="https://www.pazgas.co.il/hashmal/pickapackage" target="_blank">Pazgas</a>
   - 24/7 (7%)
